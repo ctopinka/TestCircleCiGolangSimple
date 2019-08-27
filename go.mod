@@ -1,4 +1,4 @@
-module github.com/medivo/intake
+module github.com/ctopinka/TestCircleCiGolangSimple
 
 go 1.12
 
