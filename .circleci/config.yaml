@@ -1,0 +1,28 @@
+# Golang CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-go/ for more details
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/golang:latest
+    steps:
+      - checkout
+      - run: go test -count=1 -tags test ./...
+
+workflows:
+  version: 2
+  push:
+    jobs:
+      - test
+  nightly:
+    triggers:
+      - schedule:
+          # good time slot is btw. 1800 - 0100
+          # to balance est - ist workday
+          cron: "0 22 * * *"
+          filters:
+            branches:
+              only: /.*/
+    jobs:
+      - test
